@@ -33,18 +33,14 @@ const OrderSelect = styled.select`
         outline: none;
     }
 
-    ${props => props.compo === "roomsAvailable" && css`
-        background: #5AD07A 0% 0% no-repeat padding-box;
-    `}
-
 `
+
 function OrderBy(props) {
-console.log(props.options);
 
     return (
         <>
             <OrderSelect >
-                <option hidden>Newest</option>
+                <option hidden>{props.placeholder}</option>
                 {props.options.map((element, index) => 
                     <option key={index}>{element}</option>
                 )}

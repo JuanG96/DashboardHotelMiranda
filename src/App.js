@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { Dashboard } from './Dashboard';
 import { Rooms } from './Rooms';
-import { Guests } from './Guests';
 import { NavbarHorizontal } from './NavbarHorizontal';
 import { NavbarVertical } from './NavbarVertical';
 import { Bookings } from './Bookings';
@@ -21,6 +20,7 @@ import { Messages } from './Messages';
 import { Employee } from './Employee';
 import { NewEmployee } from './NewEmployee';
 import { NewRoom } from './NewRoom';
+
 
 
 
@@ -125,9 +125,9 @@ function App() {
                   <PrivateRoute path="/employee/:id">
                     <Employee />
                   </PrivateRoute>
-                <Route path="/login">
-                  <Login authenticate={authenticate} authenticated={authenticated}/>
-                </Route>
+                  <Route path="/login">
+                    <Login authenticate={authenticate} authenticated={authenticated}/>
+                  </Route>
               </AuthenticateContext.Provider>
 
             </Switch>

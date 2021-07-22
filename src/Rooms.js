@@ -8,6 +8,8 @@ import {
 import { StatusButton } from "./StatusButton";
 import { NewDataButton } from "./NewDataButton";
 import { OrderBy } from "./OrderBy";
+import { useSelector, useDispatch } from "react-redux";
+import { addRoomAction, deleteRoomAction } from "./redux/actions";
 
 
 const ContainerRooms = styled.div`
@@ -24,21 +26,20 @@ const HeaderRooms = styled.div`
 `
 
 const TabsRooms = styled.div`
-    width: 50%;
     margin: 20px 0 0 10px;
     display: flex;
     justify-content: flex-start;
+    border-bottom: #6E6E6E solid 1px;
     align-items: center;
     a{
         font-size: 16px;
-        margin-right: 30px;
         text-decoration: none;
         text-align: right;
         font-weight: bold;
         font: normal normal medium 16px/25px Poppins;
         letter-spacing: 0px;
         color: #6E6E6E;
-        border-bottom: #6E6E6E solid 1px;
+        border-bottom: transparent solid 1px;
         padding: 10px;
         &:hover{
             color: #135846;
@@ -88,7 +89,10 @@ const ThRooms = styled.th`
     }
 `
 function Rooms() {
-    
+
+    const counter = useSelector(state => state.counter)
+    const dispatch = useDispatch()
+
     let history = useHistory()
     let orderArr = ['a','b','c']
 
@@ -107,9 +111,10 @@ function Rooms() {
                         <a href="https://www.google.com">Available rooms</a>
                         <a href="https://www.google.com">Booked rooms</a>
                     </TabsRooms>
-                    <ButtonsRooms>
+                <ButtonsRooms>
+                        <button onClick={() => dispatch(addRoomAction())}>asd</button>
                         <NewDataButton buttonName="New" compo="rooms" value="+ New room"></NewDataButton>
-                        <OrderBy options={orderArr} />
+                        <OrderBy options={orderArr} placeholder="Newest" />
                     </ButtonsRooms>
                 </HeaderRooms>
             
@@ -117,7 +122,6 @@ function Rooms() {
                 <thead>
 
                 <TrRoomsHeader>
-                    <ThRooms><input type="checkbox"/></ThRooms>
                     <ThRooms>Room Name</ThRooms>
                     <ThRooms>Bed Type</ThRooms>
                     <ThRooms>Room Floor</ThRooms>
@@ -128,9 +132,8 @@ function Rooms() {
                     </TrRoomsHeader>
                 </thead>
                 <tbody>
-                {rooms.map((element, index) =>
+                    {counter.map((element, index) =>
                     <TrRooms key={index}>
-                        <TdRooms><input type="checkbox" /></TdRooms>
                         <TdRooms onClick={() => clickedRow(element.id)}>{element.name}</TdRooms>
                         <TdRooms onClick={() => clickedRow(element.id)}>{element.bedType}</TdRooms>
                         <TdRooms onClick={() => clickedRow(element.id)}>{element.floor}</TdRooms>
@@ -140,7 +143,9 @@ function Rooms() {
                             <StatusButton buttonName={element.status} compo="rooms"></StatusButton>
                         </TdRooms>
                         <TdRooms>
-                            <FontAwesomeIcon icon={faEllipsisV} />
+                                <button onClick={() => dispatch(deleteRoomAction(element.id))}>
+                                <FontAwesomeIcon icon={faEllipsisV} />     
+                            </button>
                         </TdRooms>
 
                     </TrRooms>

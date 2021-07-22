@@ -12,7 +12,6 @@ const NewButton = styled.button`
     color: #FFFFFF;
     margin-right: 20px;
     background: #135846 0% 0% no-repeat padding-box;
-    border-radius: 12px;
 
 
 `

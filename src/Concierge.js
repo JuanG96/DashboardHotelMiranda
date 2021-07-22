@@ -23,21 +23,20 @@ const HeaderRooms = styled.div`
 `
 
 const TabsRooms = styled.div`
-    width: 50%;
     margin: 20px 0 0 10px;
     display: flex;
     justify-content: flex-start;
+    border-bottom: #6E6E6E solid 1px;
     align-items: center;
     a{
         font-size: 16px;
-        margin-right: 30px;
         text-decoration: none;
         text-align: right;
         font-weight: bold;
         font: normal normal medium 16px/25px Poppins;
         letter-spacing: 0px;
         color: #6E6E6E;
-        border-bottom: #6E6E6E solid 1px;
+        border-bottom: transparent solid 1px;
         padding: 10px;
         &:hover{
             color: #135846;
@@ -108,7 +107,7 @@ function Concierge() {
                 </TabsRooms>
                 <ButtonsRooms>
                     <NewDataButton buttonName="New" compo="concierge" value="+ New employee" ></NewDataButton>
-                    <OrderBy options={orderArr} />
+                    <OrderBy options={orderArr} placeholder="Newest"/>
                 </ButtonsRooms>
             </HeaderRooms>
 
@@ -116,7 +115,6 @@ function Concierge() {
                 <thead>
 
                     <TrRoomsHeader>
-                        <ThRooms><input type="checkbox" /></ThRooms>
                         <ThRooms>Photo</ThRooms>
                         <ThRooms>Name</ThRooms>
                         <ThRooms>Employee ID</ThRooms>
@@ -130,7 +128,6 @@ function Concierge() {
                 <tbody>
                     {concierge.map((element, index) =>
                         <TrRooms key={index}>
-                            <TdRooms><input type="checkbox" /></TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>Photo</TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.name}</TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.id}</TdRooms>

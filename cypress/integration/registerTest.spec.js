@@ -1,6 +1,6 @@
 let name = "Pedro";
-let email = "pedro@gmail.com";
-let pass = "deltoro";
+let email = "admin@admin.com";
+let pass = "admin";
 
 describe('My first test', () => {
     it('Nothing', () => {
