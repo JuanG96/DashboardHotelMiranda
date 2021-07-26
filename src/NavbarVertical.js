@@ -133,15 +133,15 @@ function NavbarVertical(props) {
                         </li>
                         <li>
                             <FontAwesomeIcon icon={faKey} className="icons"/>
-                            <VerticalLi to="rooms" id="rooms"> Rooms</VerticalLi>
+                            <VerticalLi to="/rooms" id="rooms"> Rooms</VerticalLi>
                         </li>
                         <li>
                             <FontAwesomeIcon icon={faCalendarCheck} className="icons"/>
-                            <VerticalLi to="bookings" id="bookings"> Bookings</VerticalLi>
+                            <VerticalLi to="/bookings" id="bookings"> Bookings</VerticalLi>
                         </li>
                         <li>
                             <FontAwesomeIcon icon={faConciergeBell} className="icons"/>
-                            <VerticalLi to="concierge" id="concierge"> Concierge</VerticalLi>
+                            <VerticalLi to="/concierge" id="concierge"> Concierge</VerticalLi>
                         </li>
                     </VerticalUl>
 

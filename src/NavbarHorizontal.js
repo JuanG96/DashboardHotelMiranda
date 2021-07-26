@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faBell } from '@fortawesome/free-regular-svg-icons'
-import React, { useEffect, useState, useContext } from "react";
-import { ComponentContext } from "./App"
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import React from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { NavLink } from "react-router-dom";
 
@@ -55,6 +55,7 @@ function NavbarHorizontal() {
             <GlobalDiv>
 
                 <Title>
+                    <FontAwesomeIcon icon={faBars} />
                     <h1>{compoName}</h1>
                 </Title>
                 <Buttons>

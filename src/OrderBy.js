@@ -1,4 +1,7 @@
 import styled, { css } from "styled-components"
+import { useDispatch } from "react-redux";
+import { filterByRoomAction, fetchRoomAction, fetchConciergeAction, filterByConciergeAction } from "./redux/actions";
+
 
 const OrderSelect = styled.select`
     width: 134px;
@@ -37,9 +40,32 @@ const OrderSelect = styled.select`
 
 function OrderBy(props) {
 
+    const dispatch = useDispatch()
+    
+    const filterBy = () => {
+        let filterValue = document.getElementById('filter-select').value
+        
+        if (props.compo === "Rooms") {
+            dispatch(fetchRoomAction())
+            if (filterValue === "All") {
+                dispatch(fetchRoomAction())
+            } else {
+                dispatch(filterByRoomAction(filterValue))
+            }
+        }
+        if (props.compo === "Concierge") {
+            dispatch(fetchConciergeAction())
+            if (filterValue === "All") {
+                dispatch(fetchConciergeAction())
+            } else {
+                dispatch(filterByConciergeAction(filterValue))
+            }
+        }
+    }
+
     return (
         <>
-            <OrderSelect >
+            <OrderSelect id="filter-select" onChange={() => filterBy()}>
                 <option hidden>{props.placeholder}</option>
                 {props.options.map((element, index) => 
                     <option key={index}>{element}</option>

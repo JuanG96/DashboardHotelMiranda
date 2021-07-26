@@ -1,12 +1,20 @@
 import rooms from "../jsons/rooms.json"
 
-const counterReducer = (state = rooms, action) => {
-    if (action.type === "ADD_ROOM") {
-        return [...state, action.payload]
-    } else if (action.type === "DELETE_ROOM") {
-        return state.filter(element => element.id !== action.payload)
+const modifyRooms = (state = rooms, action) => {
+    switch (action.type) {
+        case "ADD_ROOM":
+            return [...state, action.payload]
+        case "FETCH_ROOM":
+            return rooms
+        case "DELETE_ROOM":
+            return state.filter(element => element.id !== action.payload)
+        case "FILTER_ROOM":
+            return [...state.filter(element => element.status === action.payload)]
+        default:
+            return state
+
+
     }
-    return state
 }
 
-export default counterReducer
+export default modifyRooms

@@ -2,12 +2,14 @@ import styled from "styled-components"
 import concierge from "./jsons/concierge.json"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import {
-    useHistory
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { StatusButton } from "./StatusButton";
 import { NewDataButton } from "./NewDataButton";
 import { OrderBy } from "./OrderBy";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteConciergeAction } from "./redux/actions";
+
+
 
 const ContainerRooms = styled.div`
     background-color: #F8F8F8;
@@ -86,9 +88,12 @@ const ThRooms = styled.th`
     }
 `
 function Concierge() {
+    const allEmployees = useSelector(state => state.concierge)
+    console.log(allEmployees);
+    const dispatch = useDispatch()
 
     let history = useHistory()
-    let orderArr = ['Active', 'Inactive']
+    let orderArr = ['All', 'Active', 'Inactive']
 
 
     const clickedRow = (pId) => {
@@ -107,7 +112,7 @@ function Concierge() {
                 </TabsRooms>
                 <ButtonsRooms>
                     <NewDataButton buttonName="New" compo="concierge" value="+ New employee" ></NewDataButton>
-                    <OrderBy options={orderArr} placeholder="Newest"/>
+                    <OrderBy options={orderArr} placeholder="Newest" compo="Concierge"/>
                 </ButtonsRooms>
             </HeaderRooms>
 
@@ -126,7 +131,7 @@ function Concierge() {
                     </TrRoomsHeader>
                 </thead>
                 <tbody>
-                    {concierge.map((element, index) =>
+                    {allEmployees.map((element, index) =>
                         <TrRooms key={index}>
                             <TdRooms onClick={() => clickedRow(element.id)}>Photo</TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.name}</TdRooms>
@@ -138,7 +143,9 @@ function Concierge() {
                                 <StatusButton buttonName={element.status} compo="concierge"></StatusButton>
                             </TdRooms>
                             <TdRooms>
-                                <FontAwesomeIcon icon={faEllipsisV} />
+                                <button onClick={() => dispatch(deleteConciergeAction(element.id))}>
+                                    <FontAwesomeIcon icon={faEllipsisV} />
+                                </button>
                             </TdRooms>
 
                         </TrRooms>

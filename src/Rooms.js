@@ -1,15 +1,12 @@
 import styled from "styled-components"
-import rooms from "./jsons/rooms.json"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import {
-    useHistory
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { StatusButton } from "./StatusButton";
 import { NewDataButton } from "./NewDataButton";
 import { OrderBy } from "./OrderBy";
 import { useSelector, useDispatch } from "react-redux";
-import { addRoomAction, deleteRoomAction } from "./redux/actions";
+import { deleteRoomAction } from "./redux/actions";
 
 
 const ContainerRooms = styled.div`
@@ -78,6 +75,10 @@ const TrRoomsHeader = styled.tr`
 const TdRooms = styled.td`
     text-align: center;
     vertical-align: middle;
+    #delete-button{
+        border:none;
+        background-color: transparent;
+    }
 `
 
 const ThRooms = styled.th`
@@ -90,11 +91,11 @@ const ThRooms = styled.th`
 `
 function Rooms() {
 
-    const counter = useSelector(state => state.counter)
+    const allRooms = useSelector(state => state.rooms)
     const dispatch = useDispatch()
 
     let history = useHistory()
-    let orderArr = ['a','b','c']
+    let orderArr = ['All', 'Available', 'Booked']
 
 
     const clickedRow = (pId) => {
@@ -112,9 +113,8 @@ function Rooms() {
                         <a href="https://www.google.com">Booked rooms</a>
                     </TabsRooms>
                 <ButtonsRooms>
-                        <button onClick={() => dispatch(addRoomAction())}>asd</button>
                         <NewDataButton buttonName="New" compo="rooms" value="+ New room"></NewDataButton>
-                        <OrderBy options={orderArr} placeholder="Newest" />
+                        <OrderBy options={orderArr} placeholder="Newest" compo="Rooms"/>
                     </ButtonsRooms>
                 </HeaderRooms>
             
@@ -132,7 +132,7 @@ function Rooms() {
                     </TrRoomsHeader>
                 </thead>
                 <tbody>
-                    {counter.map((element, index) =>
+                    {allRooms.map((element, index) =>
                     <TrRooms key={index}>
                         <TdRooms onClick={() => clickedRow(element.id)}>{element.name}</TdRooms>
                         <TdRooms onClick={() => clickedRow(element.id)}>{element.bedType}</TdRooms>
@@ -143,7 +143,7 @@ function Rooms() {
                             <StatusButton buttonName={element.status} compo="rooms"></StatusButton>
                         </TdRooms>
                         <TdRooms>
-                                <button onClick={() => dispatch(deleteRoomAction(element.id))}>
+                            <button id="delete-button" onClick={() => dispatch(deleteRoomAction(element.id))}>
                                 <FontAwesomeIcon icon={faEllipsisV} />     
                             </button>
                         </TdRooms>

@@ -1,10 +1,9 @@
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { OrderBy } from "./OrderBy";
-import { addRoomAction } from "./redux/actions";
+import { addConciergeAction } from "./redux/actions";
 import styled from "styled-components"
 
-const NewRoomDiv = styled.form`
+const NewRoomDiv = styled.div`
     margin-top: 50px;
     background-color: #FFFFFF;
     box-shadow: 7px 7px 20px #000020;
@@ -104,29 +103,23 @@ function NewEmployee() {
     let newRoomSubmit = (e) => {
         e.preventDefault()
         let nameInput = document.getElementById('nameInput').value
-        let bedTypeInput = document.getElementById('bedTypeInput').value
-        let floorInput = document.getElementById('floorInput').value
-        let facilitiesInput = document.getElementById('facilitiesInput').value
-        let rateInput = document.getElementById('rateInput').value
+        let dischargeInput = document.getElementById('dischargeInput').value.split('-').reverse().join('-')
+        let jobInput = document.getElementById('jobInput').value
+        let phoneInput = document.getElementById('phoneInput').value
         let statusSelect = document.getElementById('statusSelect')
         let optionStatus = statusSelect.options[statusSelect.selectedIndex].text
-        let newRoom = {
+
+        let newEmployee = {
             "id": 11,
             "name": nameInput,
-            "bedType": bedTypeInput,
-            "floor": floorInput,
-            "facilities": [
-                {},
-                {},
-                {},
-                {}
-            ],
-            "rate": rateInput,
+            "dischargeDate": dischargeInput,
+            "jobDesc": jobInput,
+            "phone": phoneInput,
             "status": optionStatus
         }
 
-        dispatch(addRoomAction(newRoom))
-        history.push("/rooms")
+        dispatch(addConciergeAction(newEmployee))
+        history.push("/concierge")
 
     }
 
@@ -150,7 +143,7 @@ function NewEmployee() {
                         <option>Inactive</option>
                     </StatusSelect>
 
-                    <button id="submit-room-button" >Create employee</button>
+                    <button id="submit-concierge-button" >Create employee</button>
                 </NewRoomForm>
 
             </NewRoomDiv>

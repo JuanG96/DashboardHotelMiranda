@@ -1,6 +1,5 @@
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { OrderBy } from "./OrderBy";
 import { addRoomAction } from "./redux/actions";
 import styled from "styled-components"
 
@@ -107,7 +106,7 @@ function NewRoom() {
         let nameInput = document.getElementById('nameInput').value
         let bedTypeInput = document.getElementById('bedTypeInput').value
         let floorInput = document.getElementById('floorInput').value
-        let facilitiesInput = document.getElementById('facilitiesInput').value
+        // let facilitiesInput = document.getElementById('facilitiesInput').value
         let rateInput = document.getElementById('rateInput').value
         let statusSelect = document.getElementById('statusSelect')
         let optionStatus = statusSelect.options[statusSelect.selectedIndex].text

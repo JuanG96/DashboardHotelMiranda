@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './roomsSlice'
+import modifyConcierge from './conciergeSlice'
+import modifyRooms from './roomsSlice'
 
 export default configureStore({
     reducer: {
-        counter: counterReducer
+        rooms: modifyRooms,
+        concierge: modifyConcierge
     }
 })
