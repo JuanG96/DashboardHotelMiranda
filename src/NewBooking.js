@@ -1,6 +1,6 @@
-import styled, {css} from "styled-components"
+import styled, { css } from "styled-components"
 
-function Guests() {
+function NewBooking() {
 
     const Title = styled.h1`
         font-size: 1.5em;
@@ -19,9 +19,9 @@ function Guests() {
 
     return (
         <>
-                <Title>Guests</Title>
+            <Title>NewBooking</Title>
         </>
     )
 }
 
-export { Guests }
+export { NewBooking }

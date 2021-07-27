@@ -19,6 +19,7 @@ import styled from "styled-components"
 import { Messages } from './Messages';
 import { Employee } from './Employee';
 import { NewEmployee } from './NewEmployee';
+import { NewBooking } from './NewBooking';
 import { NewRoom } from './NewRoom';
 
 
@@ -118,6 +119,9 @@ function App() {
                   </PrivateRoute>
                   <PrivateRoute path="/newRoom">
                     <NewRoom />
+                  </PrivateRoute>
+                  <PrivateRoute path="/newBooking">
+                    <NewBooking />
                   </PrivateRoute>
                   <PrivateRoute path="/room/:id">
                     <Room />

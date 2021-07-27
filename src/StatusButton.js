@@ -31,6 +31,22 @@ const StatButton = styled.button`
         background: #FFEDEC 0% 0% no-repeat padding-box;
         color: #E23428;
     `}
+    ${props => props.compo === "bookingsBooked" && css`
+        background: #E8FFEE 0% 0% no-repeat padding-box;
+        color: #5AD07A;
+    `}    
+    ${props => props.compo === "bookingsRefund" && css`
+        background: #FFEDEC 0% 0% no-repeat padding-box;
+        color: #E23428;
+    `}    
+    ${props => props.compo === "bookingsPending" && css`
+        background: #E2E2E2 0% 0% no-repeat padding-box;
+        color: #6D6D6D;
+    `}
+    ${props => props.compo === "bookingsCancelled" && css`
+        background: #575757 0% 0% no-repeat padding-box;
+        color: #BEBEBE;
+    `}
 `
 function StatusButton(props) {
 

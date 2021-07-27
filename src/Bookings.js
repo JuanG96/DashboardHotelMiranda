@@ -6,7 +6,7 @@ import { StatusButton } from "./StatusButton";
 import { NewDataButton } from "./NewDataButton";
 import { OrderBy } from "./OrderBy";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteRoomAction } from "./redux/actions";
+import { deleteRoomAction, fetchBookingsAction, filterByBookingsAction } from "./redux/actions";
 
 
 const ContainerRooms = styled.div`
@@ -41,7 +41,8 @@ const TabsRooms = styled.div`
         &:hover{
             color: #135846;
             border-bottom: #135846 solid 3px;
-            margin-bottom: -2px
+            margin-bottom: -2px;
+            cursor: pointer;
         }
     }
 `
@@ -91,7 +92,7 @@ const ThRooms = styled.th`
 `
 function Bookings() {
 
-    const allRooms = useSelector(state => state.rooms)
+    const allRooms = useSelector(state => state.bookings)
     const dispatch = useDispatch()
 
     let history = useHistory()
@@ -103,17 +104,36 @@ function Bookings() {
         history.push("/room/" + pId)
     }
 
+    const filterBy = (e, pFilter) => {
+        e.preventDefault()
+        dispatch(fetchBookingsAction())
+        switch (pFilter) {
+            case 'Booked':
+                return dispatch(filterByBookingsAction(pFilter));
+            case 'Pending':
+                return dispatch(filterByBookingsAction(pFilter));
+            case 'Cancelled':
+                return dispatch(filterByBookingsAction(pFilter));
+            case 'Refund':
+                return dispatch(filterByBookingsAction(pFilter));
+            default:
+                return dispatch(fetchBookingsAction())
+        }
+    }
+
 
     return (
         <ContainerRooms>
             <HeaderRooms>
                 <TabsRooms>
-                    <a href="https://www.google.com">All rooms</a>
-                    <a href="https://www.google.com">Available rooms</a>
-                    <a href="https://www.google.com">Booked rooms</a>
+                    <a onClick={(e) => filterBy(e, 'All')}>All bookings</a>
+                    <a onClick={(e) => filterBy(e, 'Booked')}>Booked</a>
+                    <a onClick={(e) => filterBy(e, 'Pending')}>Pending</a>
+                    <a onClick={(e) => filterBy(e, 'Cancelled')}>Cancelled</a>
+                    <a onClick={(e) => filterBy(e, 'Refund')}>Refund</a>
                 </TabsRooms>
                 <ButtonsRooms>
-                    <NewDataButton buttonName="New" compo="rooms" value="+ New room"></NewDataButton>
+                    <NewDataButton buttonName="New" compo="bookings" value="+ New booking"></NewDataButton>
                     <OrderBy options={orderArr} placeholder="Newest" compo="Rooms" />
                 </ButtonsRooms>
             </HeaderRooms>
@@ -122,11 +142,12 @@ function Bookings() {
                 <thead>
 
                     <TrRoomsHeader>
-                        <ThRooms>Room Name</ThRooms>
-                        <ThRooms>Bed Type</ThRooms>
-                        <ThRooms>Room Floor</ThRooms>
-                        <ThRooms>Facilities</ThRooms>
-                        <ThRooms>Rate</ThRooms>
+                        <ThRooms>Guest</ThRooms>
+                        <ThRooms>Order Date</ThRooms>
+                        <ThRooms>Check In</ThRooms>
+                        <ThRooms>Check Out</ThRooms>
+                        <ThRooms>Special Request</ThRooms>
+                        <ThRooms>Room Type</ThRooms>
                         <ThRooms>Status</ThRooms>
                         <ThRooms className="options"></ThRooms>
                     </TrRoomsHeader>
@@ -135,12 +156,13 @@ function Bookings() {
                     {allRooms.map((element, index) =>
                         <TrRooms key={index}>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.name}</TdRooms>
-                            <TdRooms onClick={() => clickedRow(element.id)}>{element.bedType}</TdRooms>
-                            <TdRooms onClick={() => clickedRow(element.id)}>{element.floor}</TdRooms>
-                            <TdRooms onClick={() => clickedRow(element.id)}>Facilities</TdRooms>
-                            <TdRooms onClick={() => clickedRow(element.id)}><b>{element.rate}</b>/night</TdRooms>
+                            <TdRooms onClick={() => clickedRow(element.id)}>{element.order}</TdRooms>
+                            <TdRooms onClick={() => clickedRow(element.id)}>{element.checkIn}</TdRooms>
+                            <TdRooms onClick={() => clickedRow(element.id)}>{element.checkOut}</TdRooms>
+                            <TdRooms onClick={() => clickedRow(element.id)}>Request</TdRooms>
+                            <TdRooms onClick={() => clickedRow(element.id)}>{element.roomType}</TdRooms>
                             <TdRooms >
-                                <StatusButton buttonName={element.status} compo="rooms"></StatusButton>
+                                <StatusButton buttonName={element.status} compo="bookings"></StatusButton>
                             </TdRooms>
                             <TdRooms>
                                 <button id="delete-button" onClick={() => dispatch(deleteRoomAction(element.id))}>

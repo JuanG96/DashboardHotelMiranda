@@ -57,3 +57,33 @@ export const filterByConciergeAction = (pStatus) => {
         payload: pStatus
     }
 }
+
+//      -------BOOKINGS------- 
+
+export const fetchBookingsAction = () => {
+    return {
+        type: 'FETCH_BOOKING'
+    }
+}
+
+
+export const addBookingsAction = (pNewBookings) => {
+    return {
+        type: 'ADD_BOOKING',
+        payload: pNewBookings,
+    }
+}
+
+export const deleteBookingsAction = (pId) => {
+    return {
+        type: 'DELETE_BOOKING',
+        payload: pId
+    }
+}
+
+export const filterByBookingsAction = (pStatus) => {
+    return {
+        type: 'FILTER_BOOKING',
+        payload: pStatus
+    }
+}

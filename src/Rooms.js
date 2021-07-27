@@ -6,7 +6,7 @@ import { StatusButton } from "./StatusButton";
 import { NewDataButton } from "./NewDataButton";
 import { OrderBy } from "./OrderBy";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteRoomAction } from "./redux/actions";
+import { deleteRoomAction, fetchRoomAction, filterByRoomAction } from "./redux/actions";
 
 
 const ContainerRooms = styled.div`
@@ -41,7 +41,8 @@ const TabsRooms = styled.div`
         &:hover{
             color: #135846;
             border-bottom: #135846 solid 3px;
-            margin-bottom: -2px
+            margin-bottom: -2px;
+            cursor: pointer;
         }
     }
 `
@@ -104,13 +105,30 @@ function Rooms() {
     }
 
 
+    const allFilter = (e) => {
+        e.preventDefault()
+        dispatch(fetchRoomAction())
+    }
+
+    const availableFilter = (e) => {
+        e.preventDefault()
+        dispatch(fetchRoomAction())
+        dispatch(filterByRoomAction('Available'))
+    }
+
+    const bookedFilter = (e) => {
+        e.preventDefault()
+        dispatch(fetchRoomAction())
+        dispatch(filterByRoomAction('Booked'))
+    }
+
     return (
         <ContainerRooms>
                 <HeaderRooms>
                     <TabsRooms>
-                        <a href="https://www.google.com">All rooms</a>
-                        <a href="https://www.google.com">Available rooms</a>
-                        <a href="https://www.google.com">Booked rooms</a>
+                        <a onClick={(e) => allFilter(e)}>All rooms</a>
+                        <a onClick={(e) => availableFilter(e)}>Available rooms</a>
+                        <a onClick={(e) => bookedFilter(e)}>Booked rooms</a>
                     </TabsRooms>
                 <ButtonsRooms>
                         <NewDataButton buttonName="New" compo="rooms" value="+ New room"></NewDataButton>

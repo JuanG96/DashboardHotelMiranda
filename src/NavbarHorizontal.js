@@ -26,6 +26,7 @@ const Title = styled.div`
         font: normal normal 600 28px/42px Poppins;
         letter-spacing: 0px;
         color: #262626;
+        margin-left: 15px;
     }
 `
 

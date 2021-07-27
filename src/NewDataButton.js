@@ -12,17 +12,21 @@ const NewButton = styled.button`
     color: #FFFFFF;
     margin-right: 20px;
     background: #135846 0% 0% no-repeat padding-box;
-
-
+    &:hover{
+        cursor: pointer;
+    }
 `
+
 function NewDataButton(props) {
     let history = useHistory()
 
     const clickedButton = () => {
         if (props.compo === "concierge") {
             history.push("/newEmployee")
-        } else {
+        } else if (props.compo === "rooms"){
             history.push("/newRoom")
+        } else if (props.compo === "bookings") {
+            history.push("/newBooking")
         }
     }
 

@@ -10,7 +10,7 @@
             {}
         ],
         "roomType": "Room 6",
-        "status": "Canceled"
+        "status": "Cancelled"
     },
     {
         "id": 2,
@@ -69,7 +69,7 @@
             {}
         ],
         "roomType": "Room 4",
-        "status": "Canceled"
+        "status": "Cancelled"
     },
     {
         "id": 7,
@@ -92,7 +92,7 @@
         "checkOut": "16/08/2020",
         "request": [],
         "roomType": "Room 4",
-        "status": "Canceled"
+        "status": "Cancelled"
     },
     {
         "id": 9,

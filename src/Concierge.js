@@ -7,7 +7,7 @@ import { StatusButton } from "./StatusButton";
 import { NewDataButton } from "./NewDataButton";
 import { OrderBy } from "./OrderBy";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteConciergeAction } from "./redux/actions";
+import { deleteConciergeAction, fetchConciergeAction, filterByConciergeAction } from "./redux/actions";
 
 
 
@@ -43,7 +43,8 @@ const TabsRooms = styled.div`
         &:hover{
             color: #135846;
             border-bottom: #135846 solid 3px;
-            margin-bottom: -2px
+            margin-bottom: -2px;
+            cursor: pointer;
         }
     }
 `
@@ -77,6 +78,11 @@ const TrRoomsHeader = styled.tr`
 const TdRooms = styled.td`
     text-align: center;
     vertical-align: middle;
+    #delete-button{
+        border:none;
+        background-color: transparent;
+    }
+    
 `
 
 const ThRooms = styled.th`
@@ -91,6 +97,7 @@ function Concierge() {
     const allEmployees = useSelector(state => state.concierge)
     console.log(allEmployees);
     const dispatch = useDispatch()
+    dispatch(fetchConciergeAction())
 
     let history = useHistory()
     let orderArr = ['All', 'Active', 'Inactive']
@@ -101,14 +108,26 @@ function Concierge() {
         history.push("/employee/" + pId)
     }
 
+    const filterBy = (e, pFilter) => {
+        e.preventDefault()
+        dispatch(fetchConciergeAction())
+        switch (pFilter) {
+            case 'Active':
+                return dispatch(filterByConciergeAction(pFilter));
+            case 'Inactive':
+                return dispatch(filterByConciergeAction(pFilter));
+            default:
+                return dispatch(fetchConciergeAction())
+            }
+    }
 
     return (
         <ContainerRooms>
             <HeaderRooms>
                 <TabsRooms>
-                    <a href="https://www.google.com">All employees</a>
-                    <a href="https://www.google.com">Active employees</a>
-                    <a href="https://www.google.com">Inactive employees</a>
+                    <a onClick={(e) => filterBy(e, 'All')}>All employees</a>
+                    <a onClick={(e) => filterBy(e, 'Active')}>Active employees</a>
+                    <a onClick={(e) => filterBy(e, 'Inactive')}>Inactive employees</a>
                 </TabsRooms>
                 <ButtonsRooms>
                     <NewDataButton buttonName="New" compo="concierge" value="+ New employee" ></NewDataButton>
@@ -143,7 +162,7 @@ function Concierge() {
                                 <StatusButton buttonName={element.status} compo="concierge"></StatusButton>
                             </TdRooms>
                             <TdRooms>
-                                <button onClick={() => dispatch(deleteConciergeAction(element.id))}>
+                                <button id="delete-button" onClick={() => dispatch(deleteConciergeAction(element.id))}>
                                     <FontAwesomeIcon icon={faEllipsisV} />
                                 </button>
                             </TdRooms>
