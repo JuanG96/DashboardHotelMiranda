@@ -95,9 +95,7 @@ const ThRooms = styled.th`
 `
 function Concierge() {
     const allEmployees = useSelector(state => state.concierge)
-    console.log(allEmployees);
     const dispatch = useDispatch()
-    dispatch(fetchConciergeAction())
 
     let history = useHistory()
     let orderArr = ['All', 'Active', 'Inactive']

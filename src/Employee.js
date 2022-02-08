@@ -1,11 +1,16 @@
-import {
-    useParams,
-    useHistory
-} from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Employee() {
     const history = useHistory()
+    const allEmployees = useSelector(state => state.concierge)
     let { id } = useParams();
+    let employee
+    allEmployees.map(element => {
+        if (element.id == id) {
+            employee = element
+        }
+    })
 
     return (
         <>
@@ -15,8 +20,8 @@ function Employee() {
                 }
             }>Back</button>
 
-            <h1>{id}</h1>
-        </>
+            <h1>{ employee.name }</h1>
+        </> 
     )
 }
 

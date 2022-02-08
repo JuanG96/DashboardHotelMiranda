@@ -1,27 +1,27 @@
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function Room() {
+function Booking() {
     const history = useHistory()
-    const allRooms = useSelector(state => state.rooms)
+    const allBookings = useSelector(state => state.bookings)
     let { id } = useParams();
-    let room
-    allRooms.map(element => {
-        if (element.id == id) {
-            room = element
+    let booking
+    allBookings.map(element => {
+            if (element.id == id) {
+            booking = element
         }
     })
     return (
         <>
             <button onClick={
                 () => {
-                    history.push("/rooms")
+                    history.push("/bookings")
                 }
             }>Back</button>
 
-            <h1>{ room.name }</h1>
+            <h1>{ booking.name }</h1>
         </>
     )
 }
 
-export { Room }
+export { Booking }

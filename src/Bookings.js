@@ -1,13 +1,15 @@
+import React, { useState, useEffect } from "react";
 import styled from "styled-components"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from "react-router-dom";
 import { StatusButton } from "./StatusButton";
 import { NewDataButton } from "./NewDataButton";
+import { RequestButton } from "./RequestButton";
 import { OrderBy } from "./OrderBy";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteRoomAction, fetchBookingsAction, filterByBookingsAction } from "./redux/actions";
-
+import { deleteRoomAction, fetchBookingsAction, filterByBookingsAction, filterByDateBookingsAction } from "./redux/actions";
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 
 const ContainerRooms = styled.div`
     background-color: #F8F8F8;
@@ -91,8 +93,8 @@ const ThRooms = styled.th`
     }
 `
 function Bookings() {
-
-    const allRooms = useSelector(state => state.bookings)
+    const [value, onChange] = useState([new Date(), new Date()]);
+    const allBookings = useSelector(state => state.bookings)
     const dispatch = useDispatch()
 
     let history = useHistory()
@@ -101,7 +103,7 @@ function Bookings() {
 
     const clickedRow = (pId) => {
 
-        history.push("/room/" + pId)
+        history.push("/booking/" + pId)
     }
 
     const filterBy = (e, pFilter) => {
@@ -121,6 +123,16 @@ function Bookings() {
         }
     }
 
+    const checkDate = () => {            
+            function pad(s) { return (s < 10) ? '0' + s : s; }
+            var d = new Date(value[0])
+            let date1 = [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/')
+            
+        var da = new Date(value[0])
+        let date2 = [pad(da.getDate()), pad(da.getMonth() + 1), da.getFullYear()].join('/')
+            dispatch(fetchBookingsAction())
+            dispatch(filterByDateBookingsAction(date1, date2))
+    }
 
     return (
         <ContainerRooms>
@@ -133,6 +145,8 @@ function Bookings() {
                     <a onClick={(e) => filterBy(e, 'Refund')}>Refund</a>
                 </TabsRooms>
                 <ButtonsRooms>
+                    <DateRangePicker onChange={onChange} value={value} />
+                    <button onClick={checkDate}>Go!</button>
                     <NewDataButton buttonName="New" compo="bookings" value="+ New booking"></NewDataButton>
                     <OrderBy options={orderArr} placeholder="Newest" compo="Rooms" />
                 </ButtonsRooms>
@@ -153,13 +167,15 @@ function Bookings() {
                     </TrRoomsHeader>
                 </thead>
                 <tbody>
-                    {allRooms.map((element, index) =>
+                    {allBookings.map((element, index) =>
                         <TrRooms key={index}>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.name}</TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.order}</TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.checkIn}</TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.checkOut}</TdRooms>
-                            <TdRooms onClick={() => clickedRow(element.id)}>Request</TdRooms>
+                            <TdRooms onClick={() => clickedRow(element.id)}>
+                                <RequestButton request={element.request}></RequestButton>
+                            </TdRooms>
                             <TdRooms onClick={() => clickedRow(element.id)}>{element.roomType}</TdRooms>
                             <TdRooms >
                                 <StatusButton buttonName={element.status} compo="bookings"></StatusButton>

@@ -87,3 +87,10 @@ export const filterByBookingsAction = (pStatus) => {
         payload: pStatus
     }
 }
+
+export const filterByDateBookingsAction = (pDateIn, pDateOut) => {
+    return {
+        type: 'FILTER_DATE_BOOKING',
+        payload: [ pDateIn, pDateOut ]
+    }
+}

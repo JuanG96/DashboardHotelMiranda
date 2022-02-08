@@ -21,6 +21,8 @@ import { Employee } from './Employee';
 import { NewEmployee } from './NewEmployee';
 import { NewBooking } from './NewBooking';
 import { NewRoom } from './NewRoom';
+import { Booking } from './Booking';
+
 
 
 
@@ -128,7 +130,10 @@ function App() {
                   </PrivateRoute>
                   <PrivateRoute path="/employee/:id">
                     <Employee />
-                  </PrivateRoute>
+                </PrivateRoute>
+                <PrivateRoute path="/booking/:id">
+                  <Booking />
+                </PrivateRoute>
                   <Route path="/login">
                     <Login authenticate={authenticate} authenticated={authenticated}/>
                   </Route>
